@@ -7,24 +7,27 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Router, Scene, Stack, Actions, Drawer } from 'react-native-router-flux';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import { LoginScreen } from './src/components/screens/';
 
-type Props = {};
-export default class App extends Component<Props> {
+class App extends React.Component {
+  constructor() {
+    super();
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Nativaae!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+      <View style={{ height: '100%', width: '100%' }}>
+        <Router>
+          <Scene key="root">
+            <Scene key="login" initial>
+              <Scene key="loginScreen" component={LoginScreen} title="Login" />
+            </Scene>
+          </Scene>
+        </Router>
       </View>
     );
   }
@@ -32,10 +35,8 @@ export default class App extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    height: '100%',
+    width: '100%',
   },
   welcome: {
     fontSize: 20,
@@ -48,3 +49,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+export default App;
