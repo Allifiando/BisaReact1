@@ -11,7 +11,9 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Router, Scene, Stack, Actions, Drawer } from 'react-native-router-flux';
 
-import { LoginScreen } from './src/components/screens/';
+import { LoginScreen,MenuScreen,SignUpScreen } from './src/components/screens/';
+
+// import Menu from './src/components/screens/MenuScreen';
 
 class App extends React.Component {
   constructor() {
@@ -23,9 +25,15 @@ class App extends React.Component {
       <View style={{ height: '100%', width: '100%' }}>
         <Router>
           <Scene key="root">
-            <Scene key="login" initial>
-              <Scene key="loginScreen" component={LoginScreen} title="Login" />
+            <Scene key="menu" hideNavBar>
+              <Scene key="menuScreen" component={MenuScreen} title="Menu" />
             </Scene>
+            <Scene key="login" hideNavBar >
+              <Scene key="loginScreen" component={LoginScreen} title="Login" />
+            </Scene>            
+            <Scene key="signup" hideNavBar initial>
+              <Scene key="signupScreen" component={SignUpScreen} title="Signup" />
+            </Scene>            
           </Scene>
         </Router>
       </View>

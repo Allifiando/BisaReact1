@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {
     View, ImageBackground, StyleSheet, Image, TextInput
-    , TouchableOpacity, Alert, ScrollView
+    , TouchableOpacity, Alert, ScrollView, Button
 } from 'react-native';
-import { Content, Text, Form, Item, Label, Input, Button, Spinner } from 'native-base';
+import { Content, Text, Form, Item, Label, Input, Spinner } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 import API from '../api/API';
@@ -24,44 +24,44 @@ class LoginScreen extends Component {
 
     onButtonPress() {
         let api = new API();
-        api.login(email, password)
-            .then((response) => Alert.alert('berhasil'))
-            .catch((error) => Alert.alert('gagal'));
+        api.login(this.state.email, this.state.password)
+            .then((response) => Actions.menu())
+            .catch((error) => console.log(error))
     }
+
+    callFun = () =>
+    {
+        alert("Image Clicked!!!");
+    }
+    goToSignUp = () => {
+        Actions.signup()
+     }
 
     render() {
         return (
-            <View style={styles.MainContainer}>
-                <Form style={[{ width: '100%' }]}>
-                    <Item stackedLabel>
-                        <Label style={{ padding: 0, margin: 0 }}>Your E-mail</Label>
-                        <Input
-                            keyboardType="email-address"
-                            style={[{ paddingTop: 2, paddingBottom: 2 }]}
-                            onChangeText={this.onEmailChange.bind(this)}
-                            value={this.state.email}
-                        />
-                    </Item>
-                    <Item stackedLabel>
-                        <Label>Password</Label>
-                        <Input
-                            style={[{ paddingTop: 2, paddingBottom: 2 }]}
-                            secureTextEntry
-                            onChangeText={this.onPasswordChange.bind(this)}
-                            value={this.state.password}
-                        />
-                    </Item>
-                </Form>
-
-                <View style={[{ flex: 1, flexDirection: 'row' }]}>
-                    <View style={{ flex: 1 }}>
-                        <Button block rounded style={{ elevation: 0 }} onPress={this.onButtonPress.bind(this)}>
-                            <Text>Login</Text>
-                        </Button>
-                    </View>
+            <ImageBackground style={{flex:1}}
+            source={{uri:'http://124.81.225.72/ando/img/backgroundlogin70persen1.png'}}>
+            <ScrollView>            
+            <View style={styles.MainContainer}>                
+                <Image source={require('../img/Logo1.png')} style={{width: 260, height: 130, marginTop: 50, marginBottom:180}}/>
+                <View style={styles.SectionStyle}>
+                    <Image source={require('../img/user.png')}style={styles.ImageStyle} />
+                    <TextInput style={{width:215}} underlineColorAndroid = "transparent" placeholder = "Email"/>
                 </View>
-                <Text style={styles.text1}>Lupa password ? </Text>
+                <View style={styles.SectionStyle}>
+                    <Image source={require('../img/locked.png')}style={styles.ImageStyle} />
+                    <TextInput style={{width:215}} underlineColorAndroid = "transparent" placeholder = "Password" secureTextEntry={true}/>
+                </View>
+                <View style={{width:"70%", margin:10}}>                   
+                    <Button title="Masuk" color="#26A9B5" border-radius="15" onPress={this.callFun} />
+                    <Text style={styles.text1}>Lupa password ? </Text>            
+                </View>
+                <View style={{width:"90%", marginTop:30 }}>                                           
+                    <TouchableOpacity onPress={this.goToSignUp}><Text style={styles.btnsignup}> Belum punya akun ? Daftar disini</Text></TouchableOpacity>
+                </View>
             </View>
+            </ScrollView>
+            </ImageBackground>
         )
     }
 }
